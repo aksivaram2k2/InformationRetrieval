@@ -1,7 +1,5 @@
 #       About - Compute Model (Training Data) and output to text file
-#       Updated             18/11/2015
-#       Prerequisites - File stop-words-english.txt, StopDocumentFrequencyTerms.txt, Diff_Document_Frequency_words_50.txt and two folders Class1 and Class2 locally available
-#       Output - ModelFile50.txt containing values for terms in class1 and class2
+#       Updated             28/10/2015
 
 import os
 from xml.dom import minidom
@@ -31,8 +29,7 @@ fp = open("StopDocumentFrequencyTerms.txt")
 data = fp.read().decode("utf-8-sig").encode("utf-8")
 docfreqstopwords = data.split()
 
-#new dictionary
-fp = open("Diff_Document_Frequency_words_50.txt")
+fp = open("Diff_Document_Frequency_words_500.txt")
 data = fp.read().decode("utf-8-sig").encode("utf-8")
 docallowedwords = data.split()
 
@@ -70,11 +67,8 @@ def ParseTerms(DataValue):
         words.append(stemmedword)
     uniqWords = sorted(set(words))
     for word in uniqWords:
-        #Remove Stop words
         if word.lower() not in stopwords:
-            #Remove > 50% occurence words
             if word.lower() not in docfreqstopwords:
-                #Allow words present in dictionary
                 if word.lower() in docallowedwords:
                     count = words.count(word)
                     words_table_data[word] = count 
@@ -98,13 +92,10 @@ def computewordstats():
         noofwords = noofwords  + value
     return noofwords,  len(d1)
 
-#Compute values for Class1
 ParseFolder('Class1')
 (noofwordsds1, distinctwordsds1) = computewordstats()
 ds1_model = d1_tf_sum_logval
-print len(ds1_model)
 
-#Compute values for Class2
 words_table_data = {}
 d1_termfrequency = defaultdict(list)
 d1_tf_sum_logval = {}
@@ -120,9 +111,8 @@ print len(model_words)
 
 start = timeit.default_timer()
 #write to model file
-f = open('ModelFile50.txt', 'w')
+f = open('ModelFile500.txt', 'w')
 for k,v in model_words.items():
-    #Term in both classes    
     if((k in ds1_model) and (k in ds2_model)):
         val1 = ds1_model[k]
         val2 = ds2_model[k]
@@ -135,7 +125,6 @@ for k,v in model_words.items():
         result2 = 0.000
         result2 = temp2/float(temp1)
         print >>f,k,result1,result2
-    #Term in Class2        
     elif(k in ds2_model):
         val1 = 0
         val2 = ds2_model[k]
@@ -147,8 +136,7 @@ for k,v in model_words.items():
         temp2 = val2+1
         result2 = 0.000
         result2 = temp2/float(temp1)
-        print >>f,k,result1,result2
-    #term in Class1        
+        print >>f,k,result1,result2        
     elif (k in ds1_model):
         val1 = ds1_model[k]
         val2 = 0
@@ -167,7 +155,7 @@ stop = timeit.default_timer()
 print 'Time to Train'
 print stop-start 
 
-f = open('ModelFileStats50.txt', 'w')
+f = open('ModelFileStats500.txt', 'w')
 print >>f,'Distinct Words in Class 1 -', str(distinctwordsds1)
 print >>f,'Total Words in Class 1 -', str(noofwordsds1)
 print >>f,'Distinct Words in Class 2 -', str(distinctwordsds2)

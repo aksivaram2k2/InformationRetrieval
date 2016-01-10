@@ -117,11 +117,11 @@ for k,v in model_words.items():
     if((k in ds1_model) and (k in ds2_model)):
         val1 = ds1_model[k]
         val2 = ds2_model[k]
-        temp1 = noofwordsds1+distinctwordsds1
+        temp1 = noofwordsds1+len(model_words)
         temp2 = val1+1
         result1 = 0.000
         result1 = temp2/float(temp1)
-        temp1 = noofwordsds2+distinctwordsds2
+        temp1 = noofwordsds2+len(model_words)
         temp2 = val2+1
         result2 = 0.000
         result2 = temp2/float(temp1)
@@ -130,11 +130,11 @@ for k,v in model_words.items():
     elif(k in ds2_model):
         val1 = 0
         val2 = ds2_model[k]
-        temp1 = noofwordsds1+distinctwordsds1
+        temp1 = noofwordsds1+len(model_words)
         temp2 = val1+1
         result1 = 0.000
         result1 = temp2/float(temp1)
-        temp1 = noofwordsds2+distinctwordsds2
+        temp1 = noofwordsds2+len(model_words)
         temp2 = val2+1
         result2 = 0.000
         result2 = temp2/float(temp1)
@@ -143,11 +143,11 @@ for k,v in model_words.items():
     elif (k in ds1_model):
         val1 = ds1_model[k]
         val2 = 0
-        temp1 = noofwordsds1+distinctwordsds1
+        temp1 = noofwordsds1+len(model_words)
         temp2 = val1+1
         result1 = 0.000
         result1 = temp2/float(temp1)
-        temp1 = noofwordsds2+distinctwordsds2
+        temp1 = noofwordsds2+len(model_words)
         temp2 = val2+1
         result2 = 0.000
         result2 = temp2/float(temp1)

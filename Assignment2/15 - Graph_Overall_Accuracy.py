@@ -11,7 +11,7 @@ mpl.rcParams['legend.handlelength'] = 0
 
 #Overall Accuracy
 x3 = [16866,1500,1000,500,400,200,100]
-y3 = [95,96,96,95,95,93,94]
+y3 = [96,96,96,95,95,93,94]
 
 # use pylab to plot x and y
 plt.plot(x3, y3, 'b-o',  label = 'Overall Accuracy')

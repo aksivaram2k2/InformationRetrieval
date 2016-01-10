@@ -11,7 +11,7 @@ mpl.rcParams['legend.handlelength'] = 0
 
 #Class 1 Data
 x1 = [16866,1500,1000,500,400,200,100]
-y1 = [94,96,96,94,94,94,94]
+y1 = [96,96,96,94,94,94,94]
 
 # use pylab to plot x and y
 plt.plot(x1, y1, 'r-*', label = 'Class 1 Accuracy')
